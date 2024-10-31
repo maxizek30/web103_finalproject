@@ -5,6 +5,7 @@ Reference the Writing User Stories final project guide in the course portal for 
 ## Outline User Roles
 
 1. Basic User
+
    - This is the general user who wants to track movies they plan to watch and manage their watchlist. They have access to adding movies, marking them as watched, and viewing their list.
 
 2. Admin

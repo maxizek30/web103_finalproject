@@ -1,21 +1,26 @@
 # Wireframes
 
-Reference the Creating an Entity Relationship Diagram final project guide in the course portal for more information about how to complete this deliverable.
-
 ## List of Pages
 
-[👉🏾👉🏾👉🏾 List the pages you expect to have in your app, with a ⭐ next to pages you have wireframed]
+- Login page
+- Home page ⭐️
+- Movie page ⭐️
+- Create movie page
+- Previously watched page ⭐️
+- Watch next page ⭐️
 
-## Wireframe 1: [page title]
+## Wireframe 1: HomePage
 
-[👉🏾👉🏾👉🏾 include wireframe 1]
+![homepage](./images/Homepage.png)
 
-## Wireframe 2: [page title]
+## Wireframe 2: Movie Page
 
-[👉🏾👉🏾👉🏾 include wireframe 2]
+![movie page](./images/Moviepage.png)
 
-## Wireframe 3: [page title]
+## Wireframe 3: Watch next page
 
-[👉🏾👉🏾👉🏾 include wireframe 3]
+![Watch next page](./images/Nextpage.png)
 
-[👉🏾👉🏾👉🏾 include more wireframes as desired]
+## Wireframe 3: Previously watched
+
+![Previously watched page](./images/Previouslywatchedpage.png)
