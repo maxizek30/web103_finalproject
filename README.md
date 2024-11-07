@@ -30,20 +30,25 @@ Backend:
 ## Features
 
 ### Preset Movie Table
-
-A list of preloaded movies that users can browse and add to their watchlist.
+A curated list of preloaded movies that users can browse and add to their watchlist.
 
 [gif goes here]
 
 ### Custom Movie Add-on
-
-Users can search for movies online and add them to their list, expanding beyond the preset options.
+Users can search for movies online and add them to their watchlist or watched list, expanding their collection beyond the preset options.
 
 [gif goes here]
 
 ### Watchlist Tracking
+Users can manage their watchlists in detail:
+- View, add, and remove movies they want to watch.
+- Mark movies as "watched" and keep track of their progress.
+- The app saves and syncs this data between sessions, allowing users to continue from where they left off.
+- 
+[gif goes here]
 
-Users can mark movies as "watched" and track their progress over time, with the app saving this data between sessions.
+### User Authentication
+Users can create accounts and log in, ensuring their movie lists and preferences are saved and accessible across different sessions and devices.
 
 [gif goes here]
 
