@@ -18,36 +18,42 @@ The app is inspired by platforms like Letterboxd, where users can maintain a wat
 
 ## Tech Stack
 
-Frontend: 
+Frontend:
+
 - React.js and Vite for building interactive UI components.
 - Axios for API requests to fetch movies
 
 Backend:
+
 - Node.js with Express for server-side logic.
 - Railway Postgres SQL for storing user data, including movies and watchlist status.
 - RESTful API to handle user data between sessions.
 
 ## Features
 
-### Preset Movie Table
+### Preset Movie Table ✅
+
 A curated list of preloaded movies that users can browse and add to their watchlist.
 
-[gif goes here]
+![demo of preset movie tables](./gifs/demo.gif)
 
 ### Custom Movie Add-on
+
 Users can search for movies online and add them to their watchlist or watched list, expanding their collection beyond the preset options.
 
 [gif goes here]
 
 ### Watchlist Tracking
+
 Users can manage their watchlists in detail:
+
 - View, add, and remove movies they want to watch.
 - Mark movies as "watched" and keep track of their progress.
 - The app saves and syncs this data between sessions, allowing users to continue from where they left off.
-- 
-[gif goes here]
+- [gif goes here]
 
 ### User Authentication
+
 Users can create accounts and log in, ensuring their movie lists and preferences are saved and accessible across different sessions and devices.
 
 [gif goes here]
