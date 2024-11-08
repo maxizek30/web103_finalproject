@@ -1,9 +1,11 @@
 import express from "express";
-import dotenv from "dotenv";
-import router from "./routes/movies.js";
-import { resetDatabase } from "./config/reset.js";
+import cors from "cors";
+import "./config/dotenv.js";
+import movieRouter from "./routes/movies.js";
 
 const app = express();
+app.use(cors())
+app.use("/movies", movieRouter);
 
 app.get("/", (req, res) => {
   res
@@ -13,13 +15,9 @@ app.get("/", (req, res) => {
     );
 });
 
-// Use the movies router for handling movie-related routes
-app.use("/movies", router);
 
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on http://localhost:${PORT}`);
 });
-
-resetDatabase();
