@@ -52,11 +52,11 @@ Users can manage their watchlists in detail:
 - The app saves and syncs this data between sessions, allowing users to continue from where they left off.
 - [gif goes here]
 
-### User Authentication
+### User Authentication ✅
 
 Users can create accounts and log in, ensuring their movie lists and preferences are saved and accessible across different sessions and devices.
 
-[gif goes here]
+![demo of user authentication tables](./gifs/authDemo.gif)
 
 ### [ADDITIONAL FEATURES GO HERE - ADD ALL FEATURES HERE IN THE FORMAT ABOVE; you will check these off and add gifs as you complete them]
 

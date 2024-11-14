@@ -21,6 +21,24 @@ const createMoviesTable = async () => {
   }
 };
 
+const createUsersTable = async () => {
+  const createUsersTableQuery = `
+    CREATE TABLE IF NOT EXISTS users (
+    id serial PRIMARY KEY,
+    githubid int NOT NULL,
+    username varchar(200) NOT NULL,
+    avatarurl varchar(500),
+    accesstoken varchar(500) NOT NULL
+)
+`;
+  try {
+    await pool.query(createUsersTableQuery);
+    console.log("users table created successfully");
+  } catch (err) {
+    console.error("⚠️ Error creating users table", err);
+  }
+}
+
 const seedMoviesTable = async () => {
   await createMoviesTable();
 
@@ -37,17 +55,18 @@ const seedMoviesTable = async () => {
       console.error(`⚠️ Error inserting movie "${movie.name}"`, err);
     }
   }
-
 };
 
-seedMoviesTable();
-// const resetDatabase = async () => {
-//   try {
-//     await seedMoviesTable();
-//     console.log("🎉 Movies table created and seeded successfully");
-//   } catch (err) {
-//     console.error("⚠️ Error resetting the database", err);
-//   }
-// };
+const resetDatabase = async () => {
+  try {
+    await seedMoviesTable();
+    console.log("🎉 Movies table created and seeded successfully");
 
-// export { resetDatabase };
+    await createUsersTable();
+    console.log("🎉 Users table created successfully");
+  } catch (err) {
+    console.error("⚠️ Error resetting the database", err);
+  }
+};
+
+resetDatabase();
