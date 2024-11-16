@@ -6,6 +6,7 @@ import passport from "passport";
 import session from "express-session";
 import { gitHubStrategy } from "./config/auth.js";
 import authRouter from "./routes/auth.js";
+import userEmailRouter from "./routes/user_email.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
 
 
 app.use(cors({
@@ -32,10 +34,10 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-
+app.use(express.json());
 app.use("/movies", movieRouter);
 app.use("/auth", authRouter);
-
+app.use("/user_email", userEmailRouter);
 app.get("/", (req, res) => {
   res
     .status(200)

@@ -2,4 +2,16 @@ body {
   background-color: black;
   color: white;
   font-family: "Inter", sans-serif;
+} 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }

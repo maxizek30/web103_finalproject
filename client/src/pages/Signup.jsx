@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { BsFillPersonFill, BsFillKeyFill } from "react-icons/bs";
+import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillKeyFill, BsEnvelopeFill } from "react-icons/bs";
 import background from "../assets/background2.jpg";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import Typing from "react-typing-effect";
-
+import { useNavigate } from "react-router-dom";
 const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Please enter your email"),
   username: yup.string().required("Please enter your username"),
-  password: yup.string().required("Please enter your password"),
+  password: yup
+    .string()
+    .min(3, "Password must be at least 3 characters")
+    .required("Please enter your password"),
 });
 
-export default function Login(props) {
-  const AUTH_URL = `${props.api_url}/auth/github`;
-  const navigate = useNavigate();
-  const [isSaving, setIsSaving] = useState(false);
-
+export default function Signup() {
   const {
     register,
     handleSubmit,
@@ -27,6 +29,9 @@ export default function Login(props) {
     resolver: yupResolver(schema),
   });
 
+  const navigate = useNavigate();
+  const [isSaving, setIsSaving] = useState(false);
+
   const onSubmit = async (data) => {
     setIsSaving(true);
     const options = {
@@ -35,18 +40,18 @@ export default function Login(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        email: data.email,
         username: data.username,
         password: data.password,
       }),
     };
     try {
-      const response = await fetch("/user_email/checklogin", options);
+      const response = await fetch("/user_email/checksignup", options);
       if (response.ok) {
-        console.log("Login Successfully!");
+        console.log("Signup Successfully!");
         navigate("/");
-        reset();
       } else {
-        toast.error("Wrong Username or Password");
+        toast.error("Email or Username has already been taken.");
       }
     } catch (error) {
       console.error("Network error:", error);
@@ -62,28 +67,34 @@ export default function Login(props) {
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="grid place-items-center h-full">
-        <div></div>
-        <Typing
-          text={["Movie Trackr: Find Your Movie!"]}
-          className="text-5xl font-bold text-cyberYellow"
-          speed={100}
-          eraseDelay={2000}
-          typingDelay={100}
-        />
-        <div className="border border-metallicSilver shadow-2xl rounded-xl h-[28rem] lg:w-[30rem] w-[22rem] bg-darkCharcoal/55 backdrop-blur-md mb-10">
+        <div className="border border-metallicSilver shadow-2xl rounded-xl h-[37rem] lg:w-[30rem] w-[22rem] bg-darkCharcoal/50 backdrop-blur-md">
           <form
             className="w-full h-full flex flex-col items-start justify-center py-5 lg:px-10 px-5"
             onSubmit={handleSubmit(onSubmit)}
           >
             <h1 className="text-2xl font-bold text-cyberYellow self-center">
-              Log In
+              FutureSelf - Sign Up
             </h1>
 
+            {/* Email Field */}
+            <label className="text-electricBlue mb-2 mt-8">Email</label>
+            <div className="relative w-full">
+              <input
+                {...register("email")}
+                className="w-full rounded-lg h-9 px-2 pl-8 pb-1 bg-darkCharcoal text-metallicSilver border border-electricBlue shadow-lg outline-none focus:border-neonPink focus:border-2"
+              />
+              <BsEnvelopeFill className="text-lg text-electricBlue absolute top-2 left-2" />
+            </div>
+            <p className="text-sm text-neonPink font-semibold mt-1">
+              {errors.email?.message}
+            </p>
+
+            {/* Username Field */}
             <label className="text-electricBlue mb-2 mt-8">Username</label>
             <div className="relative w-full">
               <input
                 {...register("username")}
-                className="w-full rounded-lg h-9 px-2 pl-8 pb-1 bg-metallicSilver/20 text-metallicSilver shadow-lg outline-none focus:border-neonPink focus:border-2"
+                className="w-full rounded-lg h-9 px-2 pl-8 pb-1 bg-darkCharcoal text-metallicSilver border border-electricBlue shadow-lg outline-none focus:border-neonPink focus:border-2"
               />
               <BsFillPersonFill className="text-lg text-electricBlue absolute top-2 left-2" />
             </div>
@@ -91,12 +102,13 @@ export default function Login(props) {
               {errors.username?.message}
             </p>
 
+            {/* Password Field */}
             <label className="text-electricBlue mb-2 mt-10">Password</label>
             <div className="relative w-full">
               <input
                 type="password"
                 {...register("password")}
-                className="w-full rounded-lg h-9 px-2 pl-8 pb-1 bg-metallicSilver/20 text-metallicSilver shadow-lg outline-none focus:border-neonPink focus:border-2"
+                className="w-full rounded-lg h-9 px-2 pl-8 pb-1 bg-darkCharcoal text-metallicSilver border border-electricBlue shadow-lg outline-none focus:border-neonPink focus:border-2"
               />
               <BsFillKeyFill className="text-lg text-electricBlue absolute top-2 left-2" />
             </div>
@@ -109,25 +121,15 @@ export default function Login(props) {
               disabled={isSaving}
               className="self-center bg-electricBlue text-darkCharcoal rounded-lg px-4 py-2 mt-8 shadow-md hover:bg-cyberYellow/80 hover:scale-105 duration-300"
             >
-              {isSaving ? "Loading..." : "Login"}
+              {isSaving ? "Loading..." : "Sign up"}
             </button>
-            <div
-              className="self-center mt-8"
+            <a
+              href="/"
+              className="self-center text-slate-300 rounded-lg px-6 py-2.5 mt-8 hover:bg-red-600 hover:scale-105 duration-300"
             >
-              <a
-                href="/signup"
-                className="self-center text-slate-300 rounded-lg px-6 py-2.5  mr-4 hover:bg-red-600 hover:scale-105 duration-300"
-              >
-                {" "}
-                Signup{" "}
-              </a>{" "}
-              <a
-                href={AUTH_URL}
-                className="self-center text-slate-300 rounded-lg px-6 py-2.5  mr-4 hover:bg-red-600 hover:scale-105 duration-300"
-              >
-                🔒 Login via GitHub
-              </a>
-            </div>
+              {" "}
+              Login{" "}
+            </a>
           </form>
         </div>
       </div>

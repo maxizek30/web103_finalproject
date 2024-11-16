@@ -39,6 +39,22 @@ const createUsersTable = async () => {
   }
 }
 
+const createUserEmailTable = async () => {
+  const createUserEmailTableQuery = `
+    CREATE TABLE IF NOT EXISTS user_email (
+    id serial PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+)`;
+  try {
+    await pool.query(createUserEmailTableQuery);
+    console.log("users table created successfully");
+  } catch (err) {
+    console.error("⚠️ Error creating users table", err);
+  }
+};
+
 const seedMoviesTable = async () => {
   await createMoviesTable();
 
@@ -57,6 +73,7 @@ const seedMoviesTable = async () => {
   }
 };
 
+
 const resetDatabase = async () => {
   try {
     await seedMoviesTable();
@@ -64,6 +81,9 @@ const resetDatabase = async () => {
 
     await createUsersTable();
     console.log("🎉 Users table created successfully");
+
+    await createUserEmailTable();
+    console.log("🎉 UserEmail table created successfully");
   } catch (err) {
     console.error("⚠️ Error resetting the database", err);
   }
