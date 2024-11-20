@@ -3,13 +3,16 @@ import { useUser } from "../context/UserContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import BackButton from "./BackButton";
+import { useMovie } from "../context/MovieContext";
 export default function Header() {
   const { user, logoutUser } = useUser();
+  const { movieSearch, setMovieSearch, filterMovieData } = useMovie();
   const navigate = useNavigate();
-  const [moviePick, setMoviePick] = useState("");
 
   const handleMovieChange = (e) => {
-    setMoviePick(e.target.value);
+    const searchTerm = e.target.value.toLowerCase();
+    setMovieSearch(searchTerm);
+    filterMovieData(searchTerm);
   };
 
   //   const handleKeyDown = (e) => {
@@ -37,7 +40,7 @@ export default function Header() {
         {/* Icon positioned inside the container */}
         <input
           type="text"
-          value={moviePick}
+          value={movieSearch}
           onChange={(e) => {
             handleMovieChange(e);
           }}
