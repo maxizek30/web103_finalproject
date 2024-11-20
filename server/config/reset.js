@@ -4,7 +4,7 @@ import "./dotenv.js";
 
 const createMoviesTable = async () => {
   const createTableQuery = `
-    DROP TABLE IF EXISTS movies;
+    DROP TABLE IF EXISTS movies CASCADE;
     
     CREATE TABLE IF NOT EXISTS movies (
       id SERIAL PRIMARY KEY,
@@ -37,7 +37,7 @@ const createUsersTable = async () => {
   } catch (err) {
     console.error("⚠️ Error creating users table", err);
   }
-}
+};
 
 const createUserEmailTable = async () => {
   const createUserEmailTableQuery = `
@@ -52,6 +52,29 @@ const createUserEmailTable = async () => {
     console.log("users table created successfully");
   } catch (err) {
     console.error("⚠️ Error creating users table", err);
+  }
+};
+
+const createUserMoviesTable = async () => {
+  const createUserMoviesTableQuery = `
+    DROP TABLE IF EXISTS user_movies;
+
+    CREATE TABLE IF NOT EXISTS user_movies (
+      id SERIAL PRIMARY KEY,
+      user_id INT NOT NULL,
+      movie_id INT NOT NULL,
+      status VARCHAR(20) CHECK (status IN ('to_watch', 'watched')),
+      added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (movie_id) REFERENCES movies(id),
+      UNIQUE (user_id, movie_id, status)
+    )
+  `;
+  try {
+    await pool.query(createUserMoviesTableQuery);
+    console.log("🎉 UserMovies table created successfully");
+  } catch (err) {
+    console.error("⚠️ Error creating user_movies table", err);
   }
 };
 
@@ -73,7 +96,6 @@ const seedMoviesTable = async () => {
   }
 };
 
-
 const resetDatabase = async () => {
   try {
     await seedMoviesTable();
@@ -84,6 +106,9 @@ const resetDatabase = async () => {
 
     await createUserEmailTable();
     console.log("🎉 UserEmail table created successfully");
+
+    await createUserMoviesTable();
+    console.log("🎉 UserMovies table created successfully");
   } catch (err) {
     console.error("⚠️ Error resetting the database", err);
   }
