@@ -8,7 +8,7 @@ export default function Header() {
     const url = `${import.meta.env.VITE_API_URL}/auth/logout`;
     const response = await fetch(url, { credentials: "include" });
     const json = await response.json();
-    logoutUser()
+    logoutUser();
     navigate("/");
   };
 
@@ -35,6 +35,19 @@ export default function Header() {
             </>
           )}
         </div>
+        {/* For testing purposes */}
+        <button
+          onClick={() => navigate("/movie/add")}
+          style={styles.logoutButton}
+        >
+          Add Movie
+        </button>
+        <button
+          onClick={() => navigate("/movie/create")}
+          style={styles.logoutButton}
+        >
+          Create Movie
+        </button>
         <button onClick={logout} style={styles.logoutButton}>
           Logout
         </button>
@@ -86,5 +99,6 @@ const styles = {
     borderRadius: "5px",
     color: "#fff",
     cursor: "pointer",
+    marginLeft: "10px",
   },
 };

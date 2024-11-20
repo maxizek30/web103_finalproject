@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useUser } from "../context/UserContext";
 
-const CreateMovie = ({ userId, apiUrl }) => {
+const CreateMovie = () => {
+  const { user } = useUser();
+  useEffect(() => {
+    console.log("In create movie component, USERID: ", user);
+  }, [user]);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -25,17 +30,20 @@ const CreateMovie = ({ userId, apiUrl }) => {
 
     try {
       // Step 1: Create movie in the movies table
-      const movieResponse = await fetch(`${apiUrl}/movies`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          description: formData.description,
-          moviePosterUrl: formData.moviePosterUrl,
-        }),
-      });
+      const movieResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/movies`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            description: formData.description,
+            moviePosterUrl: formData.moviePosterUrl,
+          }),
+        }
+      );
 
       if (!movieResponse.ok) {
         throw new Error("Error creating movie");
@@ -45,24 +53,27 @@ const CreateMovie = ({ userId, apiUrl }) => {
       const movieId = movieData.movie.id; // Assuming movie is returned with an ID
 
       // Step 2: Create entry in the user_movies table
-      const userMovieResponse = await fetch(`${apiUrl}/user_movies`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId, // Pass the user ID as a prop or get it from context/session
-          movie_id: movieId,
-          status: formData.status,
-        }),
-      });
+      const userMovieResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/user_movies`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.id, // Pass the user ID as a prop or get it from context/session
+            movie_id: movieId,
+            status: formData.status,
+          }),
+        }
+      );
 
       if (!userMovieResponse.ok) {
         throw new Error("Error adding movie to user list");
       }
 
       toast.success("Movie added successfully!");
-      navigate("/"); // Redirect to the movie list or another page after success
+      navigate("/movie-page"); // Redirect to the movie list or another page after success
     } catch (error) {
       console.error("Error:", error);
       toast.error("An error occurred while adding the movie.");

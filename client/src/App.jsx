@@ -8,6 +8,8 @@ import Signup from "./pages/Signup.jsx";
 import { Toaster } from "sonner";
 import { useUser } from "./context/UserContext.js";
 import { useNavigate } from "react-router-dom";
+import CreateMovie from "./components/CreateMovie.jsx";
+import AddMovie from "./pages/AddMovie.jsx";
 
 export default function App() {
   const { user, loginUser } = useUser();
@@ -22,11 +24,11 @@ export default function App() {
       );
       const json = await response.json();
       if (json.user) {
-        console.log(json.user)
+        console.log(json.user);
         loginUser(...Object.values(json.user));
         navigate("/movie-page");
-      } else{
-        console.log("Can't login through Github.")
+      } else {
+        console.log("Can't login through Github.");
       }
     };
     getUser();
@@ -40,7 +42,9 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/movie-page" element={<Movies />} />
         <Route path="/movie/:movieId" element={<MoviePicked />} />
+        <Route path="/movie/create" element={<CreateMovie />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/movie/add" element={<AddMovie />} />
       </Routes>
     </>
   );
