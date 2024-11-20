@@ -7,6 +7,7 @@ import { BsFillKeyFill, BsEnvelopeFill } from "react-icons/bs";
 import background from "../assets/background2.jpg";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -30,6 +31,7 @@ export default function Signup() {
   });
 
   const navigate = useNavigate();
+  const { loginUser } = useUser();
   const [isSaving, setIsSaving] = useState(false);
 
   const onSubmit = async (data) => {
@@ -49,7 +51,9 @@ export default function Signup() {
       const response = await fetch("/user_email/checksignup", options);
       if (response.ok) {
         console.log("Signup Successfully!");
-        navigate("/");
+        const data = await response.json();
+        loginUser(data.id, data.email, data.username);
+        navigate("/movie-page");
       } else {
         toast.error("Email or Username has already been taken.");
       }
@@ -73,7 +77,7 @@ export default function Signup() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <h1 className="text-2xl font-bold text-cyberYellow self-center">
-              FutureSelf - Sign Up
+              Sign Up
             </h1>
 
             {/* Email Field */}
@@ -121,7 +125,7 @@ export default function Signup() {
               disabled={isSaving}
               className="self-center bg-electricBlue text-darkCharcoal rounded-lg px-4 py-2 mt-8 shadow-md hover:bg-cyberYellow/80 hover:scale-105 duration-300"
             >
-              {isSaving ? "Loading..." : "Sign up"}
+              {isSaving ? "Signing you up..." : "Sign up"}
             </button>
             <a
               href="/"

@@ -35,7 +35,7 @@ authRouter.get(
 authRouter.get(
     '/github/callback',
     passport.authenticate('github', {
-        successRedirect: 'http://localhost:5173/',
+        successRedirect: 'http://localhost:5173/movie-page',
         failureRedirect: 'http://localhost:5173/login',
     })
 )

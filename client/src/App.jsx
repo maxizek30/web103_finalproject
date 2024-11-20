@@ -1,66 +1,47 @@
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
-import MovieList from "./components/MovieList";
-import MoviePage from "./pages/MoviePage";
+import { Routes, Route } from "react-router-dom";
+import Movies from "./pages/Movies.jsx";
+import MoviePicked from "./pages/MoviePicked.jsx";
 import "./App.css";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login.jsx";
-import Header from "./components/Header.jsx";
 import Signup from "./pages/Signup.jsx";
 import { Toaster } from "sonner";
+import { useUser } from "./context/UserContext.js";
+import { useNavigate } from "react-router-dom";
 
-function AppRoutes({ user, API_URL }) {
-  return useRoutes([
-    {
-      path: "/",
-      element:
-        user && user.id ? (
-          <MovieList user={user} />
-        ) : (
-          <Login api_url={API_URL} />
-        ),
-    },
-    {
-      path: "/movie/:movieId",
-      element: <MoviePage />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-  ]);
-}
-
-function App() {
-  const [user, setUser] = useState(null);
-  const API_URL = "http://localhost:3001";
-
+export default function App() {
+  const { user, loginUser } = useUser();
+  const navigate = useNavigate();
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`${API_URL}/auth/login/success`, {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login/success`,
+        {
+          credentials: "include",
+        }
+      );
       const json = await response.json();
-      setUser(json.user);
+      if (json.user) {
+        console.log(json.user)
+        loginUser(...Object.values(json.user));
+        navigate("/movie-page");
+      } else{
+        console.log("Can't login through Github.")
+      }
     };
     getUser();
-    console.log("user", user);
+    console.log("User:", user);
   }, []);
-  const logout = async () => {
-    const url = `${API_URL}/auth/logout`;
-    const response = await fetch(url, { credentials: "include" });
-    const json = await response.json();
-    window.location.href = "/";
-  };
 
   return (
     <>
       <Toaster position="top-right" richColors closeButton />
-      <Router>
-        <Header user={user} onLogout={logout} />
-        <AppRoutes user={user} API_URL={API_URL} />
-      </Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/movie-page" element={<Movies />} />
+        <Route path="/movie/:movieId" element={<MoviePicked />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </>
   );
 }
-
-export default App;

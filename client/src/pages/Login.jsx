@@ -7,15 +7,17 @@ import background from "../assets/background2.jpg";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Typing from "react-typing-effect";
+import { useUser } from "../context/UserContext";
 
 const schema = yup.object().shape({
   username: yup.string().required("Please enter your username"),
   password: yup.string().required("Please enter your password"),
 });
 
-export default function Login(props) {
-  const AUTH_URL = `${props.api_url}/auth/github`;
+export default function Login() {
+  const AUTH_URL = `${import.meta.env.VITE_API_URL}/auth/github`;
   const navigate = useNavigate();
+  const { loginUser } = useUser();
   const [isSaving, setIsSaving] = useState(false);
 
   const {
@@ -43,7 +45,9 @@ export default function Login(props) {
       const response = await fetch("/user_email/checklogin", options);
       if (response.ok) {
         console.log("Login Successfully!");
-        navigate("/");
+        const data = await response.json();
+        loginUser(data.id, data.email, data.username);
+        navigate("/movie-page");
         reset();
       } else {
         toast.error("Wrong Username or Password");
@@ -109,11 +113,9 @@ export default function Login(props) {
               disabled={isSaving}
               className="self-center bg-electricBlue text-darkCharcoal rounded-lg px-4 py-2 mt-8 shadow-md hover:bg-cyberYellow/80 hover:scale-105 duration-300"
             >
-              {isSaving ? "Loading..." : "Login"}
+              {isSaving ? "Logging you in..." : "Login"}
             </button>
-            <div
-              className="self-center mt-8"
-            >
+            <div className="self-center mt-8 break-word">
               <a
                 href="/signup"
                 className="self-center text-slate-300 rounded-lg px-6 py-2.5  mr-4 hover:bg-red-600 hover:scale-105 duration-300"
@@ -123,7 +125,7 @@ export default function Login(props) {
               </a>{" "}
               <a
                 href={AUTH_URL}
-                className="self-center text-slate-300 rounded-lg px-6 py-2.5  mr-4 hover:bg-red-600 hover:scale-105 duration-300"
+                className="self-center text-slate-300 rounded-lg px-6 py-2.5  mr-4 hover:bg-red-600 hover:scale-105 duration-300 cursor-pointer"
               >
                 🔒 Login via GitHub
               </a>

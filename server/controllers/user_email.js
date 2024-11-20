@@ -10,7 +10,7 @@ const checklogin = async (req, res) => {
     const { username, password } = req.body;
     const results = await pool.query(selectQuery, [username, password]);
     if (results.rowCount === 1){
-        res.status(200).json(results.rows[0]);
+        return res.status(200).json(results.rows[0]);
     } else if (results.rowCount === 0) {
         res.status(401).json("Wrong username or password");
     }

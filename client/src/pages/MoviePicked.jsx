@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import movieData from "../../../server/data/movies";
 
-const MoviePage = () => {
+export default function MoviePicked () {
   const { movieId } = useParams();
   const movie = movieData[movieId];
 
@@ -60,5 +60,3 @@ const styles = {
     lineHeight: "1.6",
   },
 };
-
-export default MoviePage;
