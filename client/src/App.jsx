@@ -7,6 +7,7 @@ import Login from "./pages/Login.jsx";
 import Header from "./components/Header.jsx";
 import Signup from "./pages/Signup.jsx";
 import { Toaster } from "sonner";
+import CreateMovie from "./components/CreateMovie.jsx";
 
 function AppRoutes({ user, API_URL }) {
   return useRoutes([
@@ -22,6 +23,15 @@ function AppRoutes({ user, API_URL }) {
     {
       path: "/movie/:movieId",
       element: <MoviePage />,
+    },
+    {
+      path: "/movie/create",
+      element:
+        user && user.id ? (
+          <CreateMovie userId={user.id} apiUrl={API_URL} />
+        ) : (
+          <Login api_url={API_URL} />
+        ),
     },
     {
       path: "/signup",
