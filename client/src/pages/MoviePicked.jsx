@@ -1,31 +1,39 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import movieData from "../../../server/data/movies";
+import Header from "../components/Header";
 
-export default function MoviePicked () {
+export default function MoviePicked() {
   const { movieId } = useParams();
-  const movie = movieData[movieId];
+  const [movie, setMovie] = useState();
 
-  if (!movie) {
-    return <h2>Movie not found</h2>;
-  }
+  useEffect(() => {
+    setMovie(movieData[movieId]);
+  }, [movieId]);
 
   return (
-    <div style={styles.page}>
-      <div style={styles.imageContainer}>
-        <img
-          src={movie.moviePosterUrl}
-          alt={`${movie.name} poster`}
-          style={styles.image}
-        />
-      </div>
-      <div style={styles.infoContainer}>
-        <h1 style={styles.title}>{movie.name}</h1>
-        <p style={styles.description}>{movie.description}</p>
-      </div>
-    </div>
+    <>
+      <Header />
+      {movie ? (
+        <div style={styles.page}>
+          <div style={styles.imageContainer}>
+            <img
+              src={movie.moviePosterUrl}
+              alt={`${movie.name} poster`}
+              style={styles.image}
+            />
+          </div>
+          <div style={styles.infoContainer}>
+            <h1 style={styles.title}>{movie.name}</h1>
+            <p style={styles.description}>{movie.description}</p>
+          </div>
+        </div>
+      ) : (
+        <h2>Loading Movie...</h2>
+      )}
+    </>
   );
-};
+}
 
 const styles = {
   page: {
