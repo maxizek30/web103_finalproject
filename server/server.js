@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "./config/dotenv.js";
 import movieRouter from "./routes/movies.js";
+import userMovieRouter from "./routes/user_movies.js";
 import passport from "passport";
 import session from "express-session";
 import { gitHubStrategy } from "./config/auth.js";
@@ -10,32 +11,35 @@ import userEmailRouter from "./routes/user_email.js";
 
 const app = express();
 
-app.use(session({
-  secret: 'codepath',
-  resave: false,
-  saveUninitialized: true
-}))
+app.use(
+  session({
+    secret: "codepath",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: "GET,POST,PUT,DELETE,PATCH",
+    credentials: true,
+  })
+);
 
-
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: 'GET,POST,PUT,DELETE,PATCH',
-  credentials: true
-}))
-
-app.use(passport.initialize())
-app.use(passport.session())
-passport.use(gitHubStrategy)
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(gitHubStrategy);
 passport.serializeUser((user, done) => {
-  done(null, user)
-})
+  done(null, user);
+});
 passport.deserializeUser((user, done) => {
-  done(null, user)
-})
+  done(null, user);
+});
 
 app.use(express.json());
 app.use("/movies", movieRouter);
+app.use("/user_movies", userMovieRouter);
 app.use("/auth", authRouter);
 app.use("/user_email", userEmailRouter);
 app.get("/", (req, res) => {
