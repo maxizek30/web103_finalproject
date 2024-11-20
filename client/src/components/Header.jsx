@@ -123,5 +123,6 @@ const styles = {
     borderRadius: "5px",
     color: "#fff",
     cursor: "pointer",
+    marginLeft: "10px",
   },
 };
