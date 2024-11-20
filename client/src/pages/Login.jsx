@@ -42,7 +42,7 @@ export default function Login() {
       }),
     };
     try {
-      const response = await fetch("/user_email/checklogin", options);
+      const response = await fetch("/users/checklogin", options);
       if (response.ok) {
         console.log("Login Successfully!");
         const data = await response.json();

@@ -48,7 +48,7 @@ export default function Signup() {
       }),
     };
     try {
-      const response = await fetch("/user_email/checksignup", options);
+      const response = await fetch("/users/checksignup", options);
       if (response.ok) {
         console.log("Signup Successfully!");
         const data = await response.json();

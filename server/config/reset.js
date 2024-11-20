@@ -41,22 +41,6 @@ const createUsersTable = async () => {
   }
 };
 
-// const createUserEmailTable = async () => {
-//   const createUserEmailTableQuery = `
-//     CREATE TABLE IF NOT EXISTS user_email (
-//     id serial PRIMARY KEY,
-//     email TEXT NOT NULL UNIQUE,
-//     username TEXT NOT NULL UNIQUE,
-//     password TEXT NOT NULL
-// )`;
-//   try {
-//     await pool.query(createUserEmailTableQuery);
-//     console.log("Users table created successfully");
-//   } catch (err) {
-//     console.error("⚠️ Error creating users table", err);
-//   }
-// };
-
 const createUserMoviesTable = async () => {
   const createUserMoviesTableQuery = `
     DROP TABLE IF EXISTS user_movies;
@@ -105,7 +89,6 @@ const resetDatabase = async () => {
 
     await createUsersTable();
     console.log("🎉 Users table created successfully");
-    
   } catch (err) {
     console.error("⚠️ Error resetting the database", err);
   }

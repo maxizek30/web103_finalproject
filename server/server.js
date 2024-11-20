@@ -7,7 +7,7 @@ import passport from "passport";
 import session from "express-session";
 import { gitHubStrategy } from "./config/auth.js";
 import authRouter from "./routes/auth.js";
-import userEmailRouter from "./routes/user_email.js";
+import usersRouter from "./routes/users.js";
 
 const app = express();
 
@@ -41,7 +41,7 @@ app.use(express.json());
 app.use("/movies", movieRouter);
 app.use("/user_movies", userMovieRouter);
 app.use("/auth", authRouter);
-app.use("/user_email", userEmailRouter);
+app.use("/users", usersRouter);
 app.get("/", (req, res) => {
   res
     .status(200)

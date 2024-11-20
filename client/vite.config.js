@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/user_email": {
+      "/users": {
         target: "http://localhost:3001",
       },
       "/movies": {

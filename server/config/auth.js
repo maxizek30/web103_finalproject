@@ -16,10 +16,10 @@ const verify = async (accessToken, refreshToken, profile, callback)  => {
 
     if (!user) {
       const results = await pool.query(
-          `INSERT INTO users (githubid, username, avatarurl, accesstoken)
-                VALUES($1, $2, $3, $4)
+          `INSERT INTO users (githubid, username, avatarurl, accesstoken, email, password)
+                VALUES($1, $2, $3, $4, $5, $6)
                 RETURNING *`,
-          [userData.githubId, userData.username, userData.avatarUrl, accessToken]
+          [userData.githubId, userData.username, userData.avatarUrl, accessToken, userData.githubId, userData.accessToken]
       )
 
       const newUser = results.rows[0]
