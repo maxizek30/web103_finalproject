@@ -8,13 +8,13 @@ This unit, be sure to complete all tasks listed below. To complete a task, place
 
 - [ ] Deploy your project on Railway
   - [ ] In `readme.md`, add the link to your deployed project
-- [ ] Update the status of issues in your project board as you complete them
-- [ ] In `readme.md`, check off the features you have completed in this unit by adding a ✅ emoji in front of their title
-  - [ ] Under each feature you have completed, **include a GIF** showing feature functionality
-- [ ] In this document, complete the **Reflection** section below
-- [ ] 🚩🚩🚩**Complete the Final Project Feature Checklist section below**, detailing each feature you completed in the project (ONLY include features you implemented, not features you planned)
-- [ ] 🚩🚩🚩**Record a GIF showing a complete run-through of your app** that displays all the components included in the **Final Project Feature Checklist** below
-  - [ ] Include this GIF in the **Final Demo GIF** section below
+- [x] Update the status of issues in your project board as you complete them
+- [x] In `readme.md`, check off the features you have completed in this unit by adding a ✅ emoji in front of their title
+  - [x] Under each feature you have completed, **include a GIF** showing feature functionality
+- [x] In this document, complete the **Reflection** section below
+- [x] 🚩🚩🚩**Complete the Final Project Feature Checklist section below**, detailing each feature you completed in the project (ONLY include features you implemented, not features you planned)
+- [x] 🚩🚩🚩**Record a GIF showing a complete run-through of your app** that displays all the components included in the **Final Project Feature Checklist** below
+  - [x] Include this GIF in the **Final Demo GIF** section below
 
 ## Final Project Feature Checklist
 
@@ -50,9 +50,9 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 - [x] The project gracefully handles errors
 - [ ] The project includes a one-to-one database relationship
 - [ ] The project includes a slide-out pane or modal as appropriate for your use case
-- [x] The project includes a unique field within the join table
+- [ ] The project includes a unique field within the join table
 - [ ] The project includes a custom non-RESTful route with corresponding controller actions
-- [ ] The project allows filtering and/or sorting as appropriate for your use case
+- [x] The project allows filtering and/or sorting as appropriate for your use case
 - [ ] Data is automatically generated in response to a certain event or user action. Examples include generating a default inventory for a new user starting a game or creating a starter set of tasks for a user creating a new task app account
 - [ ] Data submitted via a POST or PATCH request is validated before the database is updated
 
@@ -71,11 +71,14 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 
 ## Final Demo GIF
 
-🔗 [Here's a GIF walkthrough of the final project](👉🏾👉🏾👉🏾 your link here)
+🔗 [Here's a GIF walkthrough of the final project](/gifs/demo.gif)
+![walkthrough](/gifs/demo.gif)
 
 ## Reflection
 
 ### 1. What went well during this unit?
+
+A significant portion of the app was developed during this iteration. Git proved invaluable for handling merge conflicts, as it allowed us to review each change carefully and ensure everything aligned with our goals.
 
 ### 2. What were some challenges your group faced in this unit?
 
