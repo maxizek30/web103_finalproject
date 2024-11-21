@@ -56,7 +56,7 @@ Users can manage their watchlists in detail:
 
 Users can create accounts and log in, ensuring their movie lists and preferences are saved and accessible across different sessions and devices.
 
-![demo of user authentication tables](./gifs/authDemo.gif)
+![demo of user authentication tables](./gifs/authExample.gif)
 
 ### [ADDITIONAL FEATURES GO HERE - ADD ALL FEATURES HERE IN THE FORMAT ABOVE; you will check these off and add gifs as you complete them]
 

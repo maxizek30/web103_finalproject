@@ -71,7 +71,7 @@ const MovieCard = ({ movie, movieIndex }) => {
         </div>
         {/* Second Div: Appears on hover */}
         <div
-          className={`flex-grow w-auto h-auto bg-gray-900 text-white border border-gray-500 rounded-lg shadow-lg duration-200 ease-out transition-all ${
+          className={`flex-grow w-auto max-w-[300px] h-auto bg-gray-900 text-white border border-gray-500 rounded-lg shadow-lg duration-200 ease-out transition-all ${
             isHovered ? "translate-y-0 opacity-100" : "opacity-0"
           }`}
         >
