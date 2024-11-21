@@ -12,7 +12,7 @@ const CreateMovie = () => {
     name: "",
     description: "",
     movieposterurl: "",
-    status: "to_watch", // Default status for user_movies table
+    status: "none", // Default status for user_movies table
   });
   const [isSaving, setIsSaving] = useState(false);
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const CreateMovie = () => {
           body: JSON.stringify({
             name: formData.name,
             description: formData.description,
-            movieposterUrl: formData.movieposterurl,
+            movieposterurl: formData.movieposterurl,
             editable: "true",
           }),
         }

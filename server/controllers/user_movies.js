@@ -115,7 +115,7 @@ const createUserMovie = async (req, res) => {
 };
 
 const getUserMoviesWithDetails = async (req, res) => {
-  const { userId, status } = req.params; // Use status to differentiate "to_watch" or "watched"
+  const { userId, status } = req.params; // Use status to differentiate "to_watch", "watched", or "none"
   try {
     const query = `
       SELECT um.id AS user_movie_id, m.*

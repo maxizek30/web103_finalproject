@@ -36,7 +36,23 @@ const checksignup = async (req, res) => {
   }
 };
 
+const getUserByUsername = async (req, res) => {
+  try {
+    const selectQuery = `
+      SELECT id, githubid, username,  avatarurl, email
+      FROM users
+      WHERE username=$1
+    `;
+    const { username } = req.params;
+    const results = await pool.query(selectQuery, [username]);
+    res.status(200).json(results.rows[0]);
+  } catch (error) {
+    res.status(409).json({ error: error.message });
+  }
+};
+
 export default {
   checklogin,
   checksignup,
+  getUserByUsername,
 };

@@ -12,11 +12,11 @@ const getMovies = async (req, res) => {
 const getMovieById = async (req, res) => {
   try {
     const selectQuery = `
-      SELECT name, description, moviePosterUrl
+      SELECT name, description, movieposterurl
       FROM movies
       WHERE id=$1
     `;
-    const {movieId} = req.params;
+    const { movieId } = req.params;
     const results = await pool.query(selectQuery, [movieId]);
     res.status(200).json(results.rows[0]);
   } catch (error) {
@@ -25,15 +25,17 @@ const getMovieById = async (req, res) => {
 };
 
 const createMovie = async (req, res) => {
-  const { name, description, moviePosterUrl, editable } = req.body;
-  if (!name || !description || !moviePosterUrl) {
+  const { name, description, movieposterurl, editable } = req.body;
+  console.log(movieposterurl);
+  if (!name || !description || !movieposterurl) {
     return res.status(400).json({ message: "All fields are required" });
   }
-
+  console.log(name);
   try {
+    console.log(name);
     const results = await pool.query(
-      "INSERT INTO movies (name, description, moviePosterUrl, editable) VALUES ($1, $2, $3, $4) RETURNING *",
-      [name, description, moviePosterUrl, editable]
+      "INSERT INTO movies (name, description, movieposterurl, editable) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, description, movieposterurl, editable]
     );
     res
       .status(201)
@@ -46,7 +48,7 @@ const createMovie = async (req, res) => {
 // Delete a movie by ID
 const deleteMovie = async (req, res) => {
   const { movieId } = req.params;
-  console.log(movieId)
+  console.log(movieId);
   try {
     const results = await pool.query(
       "DELETE FROM movies WHERE id = $1 RETURNING *",
@@ -67,15 +69,11 @@ const deleteMovie = async (req, res) => {
 const updateMovie = async (req, res) => {
   try {
     const { movieId } = req.params;
-    const {
-      name,
-      description, 
-      movieposterurl,
-    } = req.body;
-    console.log(movieId, name, description)
+    const { name, description, movieposterurl } = req.body;
+    console.log(movieId, name, description);
     const results = await pool.query(
       `
-    UPDATE movies SET name = $1, description = $2, moviePosterUrl = $3 WHERE id = $4`,
+    UPDATE movies SET name = $1, description = $2, movieposterurl = $3 WHERE id = $4`,
       [name, description, movieposterurl, movieId]
     );
     res.status(200).json(results.rows[0]);
@@ -83,7 +81,6 @@ const updateMovie = async (req, res) => {
     res.status(409).json({ error: error.message });
   }
 };
-
 
 export default {
   getMovies,

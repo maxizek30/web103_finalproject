@@ -67,6 +67,7 @@ export const MovieProvider = ({ children }) => {
 
   useEffect(() => {
     if (nextMovie) {
+      console.log(nextMovie);
       initBtnStatus("first", nextMovie, false);
     }
   }, [nextMovie]);
@@ -212,7 +213,6 @@ export const MovieProvider = ({ children }) => {
 
         setBtnStatus("first", movie.id, true);
         setBtnStatus("second", movie.id, false);
-        console.log(movie.id, showFirstBtn);
         if (isInPrev) {
           // Remove from "prev"
           updateDataUserMovie(movie.id, "none");
@@ -247,7 +247,6 @@ export const MovieProvider = ({ children }) => {
     );
   };
 
-
   const deleteMovie = (movieId) => {
     setAllMovies((prevMovies) =>
       prevMovies.filter((movie) => movie.id !== parseInt(movieId))
@@ -258,6 +257,37 @@ export const MovieProvider = ({ children }) => {
     setPrevMovie((prevMovies) =>
       prevMovies.filter((movie) => movie.id !== parseInt(movieId))
     );
+  };
+
+  const updateNextMovie = (movieId, updatedData) => {
+    console.log(updatedData);
+    setNextMovie((prevMovies) =>
+      prevMovies.some((movie) => movie.id === parseInt(movieId))
+        ? prevMovies.map((movie) =>
+            movie.id === parseInt(movieId)
+              ? { ...movie, ...updatedData }
+              : movie
+          )
+        : [...prevMovies, ...updatedData]
+    );
+    updatedData.map((movie) => {
+      updateDataUserMovie(movie.id, "to_watch");
+    });
+  };
+
+  const updatePrevMovie = (movieId, updatedData) => {
+    setPrevMovie((prevMovies) =>
+      prevMovies.some((movie) => movie.id === parseInt(movieId))
+        ? prevMovies.map((movie) =>
+            movie.id === parseInt(movieId)
+              ? { ...movie, ...updatedData }
+              : movie
+          )
+        : [...prevMovies, ...updatedData]
+    );
+    updatedData.map((movie) => {
+      updateDataUserMovie(movie.id, "watched");
+    });
   };
 
   return (
@@ -273,6 +303,8 @@ export const MovieProvider = ({ children }) => {
         setBtnStatus,
         setShowSecondBtn,
         toggleMovieData,
+        updateNextMovie,
+        updatePrevMovie,
         allMovies,
         deleteMovie,
         updateMovie,

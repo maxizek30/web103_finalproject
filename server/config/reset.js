@@ -9,7 +9,7 @@ const createMoviesTable = async () => {
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
       description TEXT NOT NULL,
-      moviePosterUrl TEXT NOT NULL,
+      movieposterurl TEXT NOT NULL,
       editable TEXT NOT NULL
     )
   `;
@@ -67,14 +67,14 @@ const seedMoviesTable = async () => {
 
   for (const movie of movieData) {
     const query = `
-    INSERT INTO movies (name, description, moviePosterUrl, editable) 
+    INSERT INTO movies (name, description, movieposterurl, editable) 
     VALUES ($1, $2, $3, $4)
     `;
     try {
       await pool.query(query, [
         movie.name,
         movie.description,
-        movie.moviePosterUrl,
+        movie.movieposterurl,
         "false",
       ]);
       console.log(`✅ ${movie.name} added successfully`);

@@ -67,7 +67,10 @@ export default function Header() {
         </button>
       </div>
 
-      <div className="flex items-center space-x-4 mr-5">
+      <div
+        className="flex items-center space-x-4 mr-5"
+        onClick={() => navigate("/user-settings")}
+      >
         {user && (
           <>
             {user.avatarurl ? (
@@ -75,9 +78,13 @@ export default function Header() {
                 src={user.avatarurl}
                 alt="User Avatar"
                 className="w-12 h-12 rounded-full border-2 border-gray-300 hover:scale-125 duration-300 cursor-pointer"
+                onClick={() => navigate("/user-settings")}
               />
             ) : (
-              <h2 className="text-lg font-semibold hover:scale-125 duration-300 cursor-pointer">
+              <h2
+                className="text-lg font-semibold hover:scale-125 duration-300 cursor-pointer"
+                onClick={() => navigate("/user-settings")}
+              >
                 {user.username}
               </h2>
             )}

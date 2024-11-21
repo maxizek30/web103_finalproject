@@ -119,9 +119,16 @@ export default function EditMovie() {
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mr-4"
               >
                 Update Movie
+              </button>
+              <button
+                type="submit"
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+                onClick={deleteBtnClick}
+              >
+                Delete
               </button>
             </form>
           </div>
