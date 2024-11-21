@@ -93,6 +93,28 @@ const createUserMovie = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+const getUserMoviesWithDetails = async (req, res) => {
+  const { userId, status } = req.params; // Use status to differentiate "to_watch" or "watched"
+  try {
+    const query = `
+      SELECT um.id AS user_movie_id, m.*
+      FROM user_movies um
+      JOIN movies m ON um.movie_id = m.id
+      WHERE um.user_id = $1 AND um.status = $2
+    `;
+    const results = await pool.query(query, [userId, status]);
+
+    if (results.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No movies found for this user and status" });
+    }
+
+    res.status(200).json(results.rows);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
 
 export default {
   getAllUserMovies,
@@ -100,4 +122,5 @@ export default {
   deleteUserMovie,
   updateUserMovie,
   createUserMovie,
+  getUserMoviesWithDetails,
 };
