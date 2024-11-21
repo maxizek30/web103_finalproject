@@ -51,8 +51,6 @@ export default function App() {
         <Route path="/movie/create" element={<CreateMovie />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/movie/add" element={<AddMovie />} />
-        <Route path="/movies/watched" element={<PreviouslyWatched />} />
-        <Route path="/movies/watch-next" element={<WatchNext />} />
       </Routes>
     </>
   );

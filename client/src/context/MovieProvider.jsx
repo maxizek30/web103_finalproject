@@ -5,10 +5,10 @@ export const MovieProvider = ({ children }) => {
   const [nextMovie, setNextMovie] = useState([]);
   const [prevMovie, setPrevMovie] = useState([]);
   const [showFirstBtn, setShowFirstBtn] = useState(
-    new Array(movieData.length).fill(true)
+    new Array(10).fill(true)
   );
   const [showSecondbtn, setShowSecondBtn] = useState(
-    new Array(movieData.length).fill(true)
+    new Array(10).fill(true)
   );
   const [movieSearch, setMovieSearch] = useState("");
   const [filteredMovie, setFilteredMovie] = useState([]);
