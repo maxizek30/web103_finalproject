@@ -78,21 +78,43 @@ const updateUserMovie = async (req, res) => {
 // Create a new user movie entry
 const createUserMovie = async (req, res) => {
   const { user_id, movie_id, status } = req.body;
+
   try {
-    const results = await pool.query(
-      `INSERT INTO user_movies (user_id, movie_id, status, added_date) 
-             VALUES ($1, $2, $3, CURRENT_TIMESTAMP) 
-             RETURNING *`,
-      [user_id, movie_id, status]
-    );
+    // Check if the movie is already in the user's list
+    const checkQuery = `
+      SELECT * FROM user_movies 
+      WHERE user_id = $1 AND movie_id = $2
+    `;
+    const checkResults = await pool.query(checkQuery, [user_id, movie_id]);
+
+    if (checkResults.rows.length > 0) {
+      // If the movie already exists, inform the frontend
+      return res.status(409).json({
+        message: `Movie is already in the user's ${checkResults.rows[0].status} list.`,
+      });
+    }
+
+    // If the movie is not in the user's list, insert it
+    const insertQuery = `
+      INSERT INTO user_movies (user_id, movie_id, status, added_date) 
+      VALUES ($1, $2, $3, CURRENT_TIMESTAMP) 
+      RETURNING *
+    `;
+    const insertResults = await pool.query(insertQuery, [
+      user_id,
+      movie_id,
+      status,
+    ]);
+
     res.status(201).json({
       message: "User movie created successfully",
-      createdMovie: results.rows[0],
+      createdMovie: insertResults.rows[0],
     });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
 };
+
 const getUserMoviesWithDetails = async (req, res) => {
   const { userId, status } = req.params; // Use status to differentiate "to_watch" or "watched"
   try {
