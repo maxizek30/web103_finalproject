@@ -20,7 +20,7 @@ const MovieCard = ({ movie, index }) => {
         <div className="relative border border-gray-300 rounded-lg overflow-hidden shadow-md max-w-[300px]">
           <div>
             <img
-              src={movie.moviePosterUrl}
+              src={movie.movieposterurl}
               alt={`${movie.name} poster`}
               className="w-full h-auto block"
             />
@@ -33,8 +33,8 @@ const MovieCard = ({ movie, index }) => {
           }`}
         >
           <div className="flex flex-col space-y-2 p-4">
-          <CustomBtn1/>
-          <CustomBtn2/>
+            <CustomBtn1 />
+            <CustomBtn2 />
           </div>
         </div>
       </Link>
