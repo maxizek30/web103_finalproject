@@ -6,19 +6,19 @@ import { useEffect, useState } from "react";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { Toaster } from "sonner";
-import { useUser } from "./context/UserContext.js";
+import { useUser } from "./context/UserContext.jsx";
 import { useNavigate } from "react-router-dom";
-import CreateMovie from "./components/CreateMovie.jsx";
-import AddMovie from "./pages/AddMovie.jsx";
+import CreateMovie from "./pages/CreateMovie.jsx";
 import NextMovie from "./pages/NextMovie.jsx";
 import PrevMovie from "./pages/PrevMovie.jsx";
-
 
 export default function App() {
   const { user, loginUser } = useUser();
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) {return}
+    if (user && user.id) {
+      return;
+    }
     const getUser = async () => {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/login/success`,
@@ -50,7 +50,7 @@ export default function App() {
         <Route path="/movie/:movieId" element={<MoviePicked />} />
         <Route path="/movie/create" element={<CreateMovie />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/movie/add" element={<AddMovie />} />
+        {/* <Route path="/movie/add" element={<AddMovie />} /> */}
       </Routes>
     </>
   );

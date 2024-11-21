@@ -2,18 +2,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { UserProvider } from "./context/UserProvider.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
 import { BrowserRouter } from "react-router-dom";
-import { MovieProvider } from "./context/MovieProvider.jsx";
+import { MovieProvider } from "./context/MovieContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <MovieProvider>
-        <UserProvider>
+      <UserProvider>
+        <MovieProvider>
           <App />
-        </UserProvider>
-      </MovieProvider>
+        </MovieProvider>
+      </UserProvider>
     </BrowserRouter>
   </StrictMode>
 );

@@ -56,12 +56,12 @@ const deleteUserMovie = async (req, res) => {
 
 // Update a user movie by ID
 const updateUserMovie = async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
+  // const { id } = req.params;
+  const { user_id, movie_id, status } = req.body;
   try {
     const results = await pool.query(
-      "UPDATE user_movies SET status = $1, added_date = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *",
-      [status, id]
+      "UPDATE user_movies SET status = $1, added_date = CURRENT_TIMESTAMP WHERE user_id = $2 AND movie_id = $3 RETURNING *",
+      [status, user_id, movie_id]
     );
     if (results.rowCount === 0) {
       return res.status(404).json({ message: "User movie not found" });
@@ -78,7 +78,6 @@ const updateUserMovie = async (req, res) => {
 // Create a new user movie entry
 const createUserMovie = async (req, res) => {
   const { user_id, movie_id, status } = req.body;
-
   try {
     // Check if the movie is already in the user's list
     const checkQuery = `

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useUser } from "../context/UserContext";
-import Header from "./Header";
+import Header from "../components/Header";
 
 const CreateMovie = () => {
   const { user } = useUser();

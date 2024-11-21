@@ -5,48 +5,17 @@ import CustomBtn2 from "./CustomBtn2";
 import { useMovie } from "../context/MovieContext";
 const MovieCard = ({ movie, movieIndex }) => {
   const [isHovered, setIsHovered] = useState(false);
-  // const [showFirstBtn, setShowFirstBtn] = useState(true);
-  // const [showSecondbtn, setShowSecondBtn] = useState(true);
-  const {
-    showFirstBtn,
-    setShowFirstBtn,
-    showSecondbtn,
-    setShowSecondBtn,
-    setNextMovie,
-    setPrevMovie,
-  } = useMovie();
+  const { showFirstBtn, showSecondbtn, setBtnStatus, toggleMovieData } =
+    useMovie();
   const navigate = useNavigate();
-
   const handleClickFirstBtn = () => {
-    setShowFirstBtn((prev) =>
-      prev.map((value, index) => (index === movieIndex ? !value : value))
-    );
-    setNextMovie((prevMovies) => {
-      // Check if the movie is already in the array
-      if (prevMovies.includes(movie)) {
-        // Remove the movie if it exists
-        return prevMovies.filter((m) => m !== movie);
-      } else {
-        // Add the movie if it doesn't exist
-        return [...prevMovies, movie];
-      }
-    });
+    setBtnStatus("first", movieIndex, false);
+    toggleMovieData(movie, "next");
   };
-
+  // console.log(showFirstBtn)
   const handleClickSecondBtn = () => {
-    setShowSecondBtn((prev) =>
-      prev.map((value, index) => (index === movieIndex ? !value : value))
-    );
-    setPrevMovie((prevMovies) => {
-      // Check if the movie is already in the array
-      if (prevMovies.includes(movie)) {
-        // Remove the movie if it exists
-        return prevMovies.filter((m) => m !== movie);
-      } else {
-        // Add the movie if it doesn't exist
-        return [...prevMovies, movie];
-      }
-    });
+    setBtnStatus("second", movieIndex, false);
+    toggleMovieData(movie, "prev");
   };
   return (
     <div

@@ -16,7 +16,7 @@ router.get("/movie/:id", UserMoviesController.getUserMovieById);
 router.delete("/movie/:id", UserMoviesController.deleteUserMovie);
 
 // Route to update a user movie by its ID
-router.put("/movie/:id", UserMoviesController.updateUserMovie);
+router.put("/movie", UserMoviesController.updateUserMovie);
 
 // Route to create a new user movie
 router.post("/", UserMoviesController.createUserMovie);

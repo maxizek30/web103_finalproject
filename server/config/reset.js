@@ -4,8 +4,7 @@ import "./dotenv.js";
 
 const createMoviesTable = async () => {
   const createTableQuery = `
-    DROP TABLE IF EXISTS movies CASCADE;
-    
+    DROP TABLE IF EXISTS movies CASCADE;  
     CREATE TABLE IF NOT EXISTS movies (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
@@ -49,7 +48,7 @@ const createUserMoviesTable = async () => {
       id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       movie_id INT NOT NULL,
-      status VARCHAR(20) CHECK (status IN ('to_watch', 'watched')),
+      status VARCHAR(20) CHECK (status IN ('to_watch', 'watched', 'none')),
       added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id),
       FOREIGN KEY (movie_id) REFERENCES movies(id),

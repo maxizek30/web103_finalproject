@@ -12,6 +12,9 @@ export default defineConfig({
       "/movies": {
         target: "http://localhost:3001",
       },
+      "/user_movies": {
+        target: "http://localhost:3001",
+      },
     },
   },
 });
