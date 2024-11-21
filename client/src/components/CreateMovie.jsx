@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useUser } from "../context/UserContext";
+import Header from "./Header";
 
 const CreateMovie = () => {
   const { user } = useUser();
-  useEffect(() => {
-    console.log("In create movie component, USERID: ", user);
-  }, [user]);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -16,6 +14,10 @@ const CreateMovie = () => {
   });
   const [isSaving, setIsSaving] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("In create movie component, USERID: ", user);
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({
@@ -61,7 +63,7 @@ const CreateMovie = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            user_id: user.id, // Pass the user ID as a prop or get it from context/session
+            user_id: user.id,
             movie_id: movieId,
             status: formData.status,
           }),
@@ -83,53 +85,79 @@ const CreateMovie = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add a New Movie</h2>
-      <form onSubmit={handleSubmit}>
-        <label className="block mb-2">
-          Movie Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            style={{ color: "black" }}
-            className="w-full border rounded px-2 py-1 mb-2"
-          />
-        </label>
-        <label className="block mb-2">
-          Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-            style={{ color: "black" }}
-            className="w-full border rounded px-2 py-1 mb-2"
-          />
-        </label>
-        <label className="block mb-2">
-          Movie Poster URL:
-          <input
-            type="text"
-            name="moviePosterUrl"
-            value={formData.moviePosterUrl}
-            style={{ color: "black" }}
-            onChange={handleChange}
-            required
-            className="w-full border rounded px-2 py-1 mb-4"
-          />
-        </label>
-        <button
-          type="submit"
-          disabled={isSaving}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          {isSaving ? "Saving..." : "Add Movie"}
-        </button>
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className="container mx-auto p-6">
+        <h2 className="text-3xl font-bold mb-6 text-center">Add a New Movie</h2>
+        <div className="flex flex-wrap lg:flex-nowrap gap-6">
+          {/* Left: Movie Poster Preview */}
+          <div className="flex-2 flex items-center justify-center border rounded-lg p-4 bg-gray-100">
+            {formData.moviePosterUrl ? (
+              <img
+                src={formData.moviePosterUrl}
+                alt="Movie Poster Preview"
+                className="max-w-full max-h-96 object-contain"
+              />
+            ) : (
+              <p className="text-gray-500">
+                Movie poster preview will appear here
+              </p>
+            )}
+          </div>
+
+          {/* Right: Form Fields */}
+          <div className="flex-1">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-lg font-medium mb-2">
+                  Movie Name:
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full border rounded-lg px-3 py-2 text-gray-800"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-lg font-medium mb-2">
+                  Description:
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  className="w-full border rounded-lg px-3 py-2 text-gray-800"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-lg font-medium mb-2">
+                  Movie Poster URL:
+                </label>
+                <input
+                  type="text"
+                  name="moviePosterUrl"
+                  value={formData.moviePosterUrl}
+                  onChange={handleChange}
+                  required
+                  className="w-full border rounded-lg px-3 py-2 text-gray-800"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isSaving}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+              >
+                {isSaving ? "Saving..." : "Add Movie"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

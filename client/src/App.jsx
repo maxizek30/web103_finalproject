@@ -10,6 +10,8 @@ import { useUser } from "./context/UserContext.js";
 import { useNavigate } from "react-router-dom";
 import CreateMovie from "./components/CreateMovie.jsx";
 import AddMovie from "./pages/AddMovie.jsx";
+import WatchNext from "./pages/WatchNext.jsx";
+import PreviouslyWatched from "./pages/PreviouslyWatched.jsx";
 
 export default function App() {
   const { user, loginUser } = useUser();
@@ -45,6 +47,8 @@ export default function App() {
         <Route path="/movie/create" element={<CreateMovie />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/movie/add" element={<AddMovie />} />
+        <Route path="/movies/watched" element={<PreviouslyWatched />} />
+        <Route path="/movies/watch-next" element={<WatchNext />} />
       </Routes>
     </>
   );
