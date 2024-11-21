@@ -21,7 +21,7 @@ export default function BackButton() {
     <>
       {location.pathname == "/movie-page" ? (
         <h2 className="flex items-center text-4xl ml-5 font-bold tracking-wide hover:scale-125 duration-300 cursor-pointer">
-          Movies <GiPopcorn />
+          MovieTrackr <GiPopcorn />
         </h2>
       ) : (
         <button

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-export default function CustomBtn1() {
+export default function CustomBtn1({firstMessage="First", secondMessage="Second", color="red"}) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="flex justify-center">
       <button
-        className="relative px-3 py-1.5 overflow-hidden bg-gradient-to-r from-red-700 to-red-500 text-white font-semibold border border-gray-100 rounded-lg shadow-inner group"
+        className={`relative px-3 py-1.5 overflow-hidden bg-gradient-to-r from-${color}-700 to-${color}-500 text-white font-semibold border border-gray-100 rounded-lg shadow-inner group`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -19,7 +19,7 @@ export default function CustomBtn1() {
 
         {/* Button Text */}
         <span className="relative transition-colors duration-300 delay-200 group-hover:text-white">
-          {isHovered ? "Movie Time!" : "Add to Next Movie"}
+          {isHovered ? secondMessage : firstMessage}
         </span>
       </button>
     </div>

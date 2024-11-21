@@ -10,11 +10,14 @@ import { useUser } from "./context/UserContext.js";
 import { useNavigate } from "react-router-dom";
 import CreateMovie from "./components/CreateMovie.jsx";
 import AddMovie from "./pages/AddMovie.jsx";
+import NextMovie from "./pages/NextMovie.jsx";
+import PrevMovie from "./pages/PrevMovie.jsx";
 
 export default function App() {
   const { user, loginUser } = useUser();
   const navigate = useNavigate();
   useEffect(() => {
+    if (user) {return}
     const getUser = async () => {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/login/success`,
@@ -41,6 +44,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/movie-page" element={<Movies />} />
+        <Route path="/movie-next" element={<NextMovie />} />
+        <Route path="/movie-prev" element={<PrevMovie />} />
         <Route path="/movie/:movieId" element={<MoviePicked />} />
         <Route path="/movie/create" element={<CreateMovie />} />
         <Route path="/signup" element={<Signup />} />

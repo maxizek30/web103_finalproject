@@ -6,27 +6,19 @@ import BackButton from "./BackButton";
 import { useMovie } from "../context/MovieContext";
 export default function Header() {
   const { user, logoutUser } = useUser();
-  const { movieSearch, setMovieSearch, filterMovieData } = useMovie();
+  const { nextMovie, prevMovie, filterMovieData } = useMovie();
+  const [movieSearch, setMovieSearch] = useState("");
   const navigate = useNavigate();
 
   const handleMovieChange = (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    setMovieSearch(searchTerm);
+    setMovieSearch(e.target.value);
     filterMovieData(searchTerm);
   };
-
-  //   const handleKeyDown = (e) => {
-  //     if (e.key === "Enter" && citySelected) {
-  //       setCity(citySelected);
-  //       navigate("/");
-  //       setCitySelected("");
-  //     }
-  //   };
 
   const logout = async () => {
     const url = `${import.meta.env.VITE_API_URL}/auth/logout`;
     const response = await fetch(url, { credentials: "include" });
-    // const json = await response.json();
     logoutUser();
     navigate("/");
   };
@@ -44,25 +36,28 @@ export default function Header() {
           onChange={(e) => {
             handleMovieChange(e);
           }}
-          //   onKeyDown={(e) => {
-          //     handleKeyDown(e);
-          //   }}
           placeholder="Search for a movie..."
           className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 outline-none"
         />
       </div>
       <div className="flex justify-center space-x-4 mr-4">
         <button
-          onClick={logout}
+          onClick={() => navigate("/movie-next")}
           className="bg-gradient-to-r from-red-700 to-red-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-red-600 hover:to-red-400 hover:scale-110 transition-transform duration-300"
-        >
-          Next Movie
+        >/\ k;n
+          Next Movie{" "}
+          <span className="text-yellow-200 font-extrabold text-lg animate-pulse">
+            {nextMovie ? nextMovie.length : ""}
+          </span>
         </button>
         <button
-          onClick={logout}
+          onClick={() => navigate("/movie-prev")}
           className="bg-gradient-to-r from-blue-700 to-blue-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-blue-400 hover:scale-110 transition-transform duration-300"
         >
-          Previous
+          Watched{" "}
+          <span className="text-yellow-200 font-extrabold text-lg animate-pulse">
+            {prevMovie ? prevMovie.length : ""}
+          </span>
         </button>
       </div>
 

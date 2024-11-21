@@ -1,18 +1,16 @@
-export default function CustomBtn2 () {
-    return (
-      <div className="flex justify-center">
-        <a
-          href="#_"
-          className="group relative inline-flex items-center justify-center overflow-hidden rounded-xl border-2 border-[#003B46] p-4 px-3 py-1.5 font-medium text-[#C4DFE6] shadow-md transition duration-300 ease-out"
-        >
-          <span className="absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gray-900 text-white duration-300 group-hover:translate-x-0">
-            Watch Already?
-          </span>
-          <span className="absolute flex h-full w-full transform items-center justify-center bg-gradient-to-r from-blue-700 to-blue-500 text-white font-semibold transition-all duration-300 group-hover:translate-x-full">
-            Add to Previous
-          </span>
-          <span className="invisible relative"> Add to Previous</span>
-        </a>
-      </div>
-    );
+export default function CustomBtn2({message=""}) {
+  return (
+    <div className="flex justify-center">
+      <button
+        className={`relative px-3 py-1.5 overflow-hidden bg-gradient-to-r from-grey-700 to-grey-500 text-white font-semibold border border-gray-100 rounded-lg shadow-inner group`}
+        // onMouseEnter={() => setIsHovered(true)}
+        // onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Button Text */}
+        <span className="relative transition-colors duration-300 delay-200 group-hover:text-white">
+         {message}
+        </span>
+      </button>
+    </div>
+  );
 }
