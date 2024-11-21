@@ -3,9 +3,7 @@ import movieData from "../data/movies.js";
 import "./dotenv.js";
 
 const createMoviesTable = async () => {
-  const createTableQuery = `
-    DROP TABLE IF EXISTS movies CASCADE;
-    
+  const createTableQuery = `    
     CREATE TABLE IF NOT EXISTS movies (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
@@ -43,8 +41,6 @@ const createUsersTable = async () => {
 
 const createUserMoviesTable = async () => {
   const createUserMoviesTableQuery = `
-    DROP TABLE IF EXISTS user_movies;
-
     CREATE TABLE IF NOT EXISTS user_movies (
       id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
@@ -68,7 +64,11 @@ const seedMoviesTable = async () => {
   await createMoviesTable();
 
   for (const movie of movieData) {
-    const query = `INSERT INTO movies (name, description, moviePosterUrl) VALUES ($1, $2, $3)`;
+    const query = `
+    INSERT INTO movies (name, description, moviePosterUrl) 
+    VALUES ($1, $2, $3)
+    ON CONFLICT (name) DO NOTHING
+    `;
     try {
       await pool.query(query, [
         movie.name,
