@@ -62,7 +62,7 @@ const MovieCard = ({ movie, movieIndex }) => {
         <div className="relative border border-gray-300 rounded-lg overflow-hidden shadow-md max-w-[300px]">
           <div>
             <img
-              src={movie.moviePosterUrl}
+              src={movie.movieposterurl}
               alt={`${movie.name} poster`}
               className="w-full h-auto block"
               onClick={() => navigate(`/movie/${movieIndex}`)}

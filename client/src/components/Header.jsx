@@ -40,9 +40,16 @@ export default function Header() {
           className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 outline-none"
         />
       </div>
+      <button
+        onClick={() => navigate("/movie/create")}
+        className="bg-gradient-to-r from-green-700 to-green-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-blue-400 hover:scale-110 transition-transform duration-300"
+      >
+        Add Movie
+      </button>
       <div className="flex justify-center space-x-4 mr-4">
         <button
           onClick={() => navigate("/movie-next")}
+
           className="bg-gradient-to-r from-red-700 to-red-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-red-600 hover:to-red-400 hover:scale-110 transition-transform duration-300"
         >/\ k;n
           Next Movie{" "}
@@ -52,6 +59,7 @@ export default function Header() {
         </button>
         <button
           onClick={() => navigate("/movie-prev")}
+
           className="bg-gradient-to-r from-blue-700 to-blue-500 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-blue-400 hover:scale-110 transition-transform duration-300"
         >
           Watched{" "}

@@ -6,6 +6,9 @@ const router = express.Router();
 // Route to get all movies for a specific user
 router.get("/:userId", UserMoviesController.getAllUserMovies);
 
+// Get movies with details for a specific user and status
+router.get("/:userId/:status", UserMoviesController.getUserMoviesWithDetails);
+
 // Route to get a specific user movie by its ID
 router.get("/movie/:id", UserMoviesController.getUserMovieById);
 
