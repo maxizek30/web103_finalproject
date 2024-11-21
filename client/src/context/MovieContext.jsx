@@ -96,6 +96,17 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
+  const addBtnStatus = async (newMovieId) => {
+    setShowFirstBtn((prevState) => ({
+      ...prevState,
+      [newMovieId]: true, // Dynamically set the key
+    }));
+    setShowSecondBtn((prevState) => ({
+      ...prevState,
+      [newMovieId]: true, // Dynamically set the key
+    }));
+  };
+
   const setBtnStatus = (btnName, movieId, value = true) => {
     if (btnName === "first") {
       setShowFirstBtn((prev) => ({
@@ -118,6 +129,9 @@ export const MovieProvider = ({ children }) => {
     setFilteredMovie(updatedMovies);
   };
 
+  useEffect(() => {
+    setFilteredMovie(allMovies);
+  }, [allMovies]);
   const insertDataUserMovie = async (movieId, movieStatus) => {
     const options = {
       method: "POST",
@@ -213,9 +227,39 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (showFirstBtn) console.log(showFirstBtn);
-  }, [showFirstBtn]);
+  const updateMovie = (movieId, updatedData) => {
+    setAllMovies((prevMovies) =>
+      prevMovies.map((movie) =>
+        movie.id === parseInt(movieId) ? { ...movie, ...updatedData } : movie
+      )
+    );
+
+    setNextMovie((prevMovies) =>
+      prevMovies.map((movie) =>
+        movie.id === parseInt(movieId) ? { ...movie, ...updatedData } : movie
+      )
+    );
+
+    setPrevMovie((prevMovies) =>
+      prevMovies.map((movie) =>
+        movie.id === parseInt(movieId) ? { ...movie, ...updatedData } : movie
+      )
+    );
+  };
+
+
+  const deleteMovie = (movieId) => {
+    setAllMovies((prevMovies) =>
+      prevMovies.filter((movie) => movie.id !== parseInt(movieId))
+    );
+    setNextMovie((prevMovies) =>
+      prevMovies.filter((movie) => movie.id !== parseInt(movieId))
+    );
+    setPrevMovie((prevMovies) =>
+      prevMovies.filter((movie) => movie.id !== parseInt(movieId))
+    );
+  };
+
   return (
     <MovieContext.Provider
       value={{
@@ -224,9 +268,14 @@ export const MovieProvider = ({ children }) => {
         showFirstBtn,
         setShowFirstBtn,
         showSecondbtn,
+        addBtnStatus,
+        setAllMovies,
         setBtnStatus,
         setShowSecondBtn,
         toggleMovieData,
+        allMovies,
+        deleteMovie,
+        updateMovie,
         filteredMovie,
         filterMovieData,
       }}

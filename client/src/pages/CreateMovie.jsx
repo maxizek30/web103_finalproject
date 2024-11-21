@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useUser } from "../context/UserContext";
 import Header from "../components/Header";
+import { useMovie } from "../context/MovieContext";
 
 const CreateMovie = () => {
   const { user } = useUser();
+  const { setAllMovies, addBtnStatus } = useMovie();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    moviePosterUrl: "",
+    movieposterurl: "",
     status: "to_watch", // Default status for user_movies table
   });
   const [isSaving, setIsSaving] = useState(false);
@@ -42,11 +44,12 @@ const CreateMovie = () => {
           body: JSON.stringify({
             name: formData.name,
             description: formData.description,
-            moviePosterUrl: formData.moviePosterUrl,
+            movieposterUrl: formData.movieposterurl,
+            editable: "true",
           }),
         }
       );
-
+      console.log(movieResponse)
       if (!movieResponse.ok) {
         throw new Error("Error creating movie");
       }
@@ -73,9 +76,10 @@ const CreateMovie = () => {
       if (!userMovieResponse.ok) {
         throw new Error("Error adding movie to user list");
       }
-
       toast.success("Movie added successfully!");
-      navigate("/movie-page"); // Redirect to the movie list or another page after success
+      setAllMovies((prev) => [...prev, movieData.movie]);
+      addBtnStatus(movieData.movie.id);
+      navigate("/movie-page");
     } catch (error) {
       console.error("Error:", error);
       toast.error("An error occurred while adding the movie.");
@@ -113,9 +117,9 @@ const CreateMovie = () => {
         <div className="flex flex-wrap lg:flex-nowrap gap-6">
           {/* Left: Movie Poster Preview */}
           <div className="flex-2 flex items-center justify-center border rounded-lg p-4 bg-gray-100">
-            {formData.moviePosterUrl ? (
+            {formData.movieposterurl ? (
               <img
-                src={formData.moviePosterUrl}
+                src={formData.movieposterurl}
                 alt="Movie Poster Preview"
                 className="max-w-full max-h-96 object-contain"
               />
@@ -160,8 +164,8 @@ const CreateMovie = () => {
                 </label>
                 <input
                   type="text"
-                  name="moviePosterUrl"
-                  value={formData.moviePosterUrl}
+                  name="movieposterurl"
+                  value={formData.movieposterurl}
                   onChange={handleChange}
                   required
                   className="w-full border rounded-lg px-3 py-2 text-gray-800"
