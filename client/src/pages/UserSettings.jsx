@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useUser } from "../context/UserContext";
 import Header from "../components/Header";
 import { useMovie } from "../context/MovieContext";
+import { toast } from "sonner";
+
 export default function UserSettings() {
   const [input, setInput] = useState("");
   const { user } = useUser();
@@ -28,6 +30,7 @@ export default function UserSettings() {
         console.log("Importing prev movie...");
         updatePrevMovie(dataWatched.id, dataWatched);
       }
+      toast.success("Imported Movie!");
     };
     getUserByUsername();
   };

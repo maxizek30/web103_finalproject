@@ -85,7 +85,9 @@ const createUserMovie = async (req, res) => {
       WHERE user_id = $1 AND movie_id = $2
     `;
     const checkResults = await pool.query(checkQuery, [user_id, movie_id]);
-
+    console.log(checkResults.rows);
+    console.log(checkResults.rows);
+    console.log(checkResults.rows);
     if (checkResults.rows.length > 0) {
       // If the movie already exists, inform the frontend
       return res.status(409).json({

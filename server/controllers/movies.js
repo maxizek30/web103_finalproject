@@ -26,13 +26,10 @@ const getMovieById = async (req, res) => {
 
 const createMovie = async (req, res) => {
   const { name, description, movieposterurl, editable } = req.body;
-  console.log(movieposterurl);
   if (!name || !description || !movieposterurl) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  console.log(name);
   try {
-    console.log(name);
     const results = await pool.query(
       "INSERT INTO movies (name, description, movieposterurl, editable) VALUES ($1, $2, $3, $4) RETURNING *",
       [name, description, movieposterurl, editable]
@@ -48,7 +45,6 @@ const createMovie = async (req, res) => {
 // Delete a movie by ID
 const deleteMovie = async (req, res) => {
   const { movieId } = req.params;
-  console.log(movieId);
   try {
     const results = await pool.query(
       "DELETE FROM movies WHERE id = $1 RETURNING *",
@@ -70,7 +66,6 @@ const updateMovie = async (req, res) => {
   try {
     const { movieId } = req.params;
     const { name, description, movieposterurl } = req.body;
-    console.log(movieId, name, description);
     const results = await pool.query(
       `
     UPDATE movies SET name = $1, description = $2, movieposterurl = $3 WHERE id = $4`,
